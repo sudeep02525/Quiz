@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .quiz-box {
+            background: #fff;
+            padding: 20px;
+            width: 350px;
+        }
+
+        .option {
+            margin: 8px 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="quiz-box">
+        <h2 id="q">Question here</h2>
+
+        <div class="option">
+            <input type="radio" name="answer" value="a">
+            <span id="a"></span>
+        </div>
+
+        <div class="option">
+            <input type="radio" name="answer" value="b">
+            <span id="b"></span>
+        </div>
+
+        <div class="option">
+            <input type="radio" name="answer" value="c">
+            <span id="c"></span>
+
+        </div>
+        <div class="option">
+            <input type="radio" name="answer" value="d">
+            <span id="d"></span>
+        </div>
+
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+    
+    <script>
+        const quizData = [
+            {
+                question : "What is the full form of html?",
+                a : "Hyper text markup language",
+                b : "High Text Machine Language",
+                c : "Hyperlink Text Mark Language",
+                d : "None",
+                correct : "a"
+            },
+
+            {
+                question : "What is Javascript used for?",
+                a : "Styling",
+                b : "database",
+                c : "Logic & Interactive",
+                d : "Server only",
+                correct : "c"
+            },
+
+            {
+                question : "What is CSS used for?",
+                a : "Logic",
+                b : "Structure",
+                c : "Styling",
+                d : "Database",
+                correct : "c"
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+    const questionEl = document.getElementById("q");
+    console.log(questionEl)
+    const aEl = document.getElementById("a");
+    console.log(aEl)
+    const bEl = document.getElementById("b");
+    const cEl = document.getElementById("c");
+    const dEl = document.getElementById("d");
+
+    function loadquestion() {
+      const q = quizData[current];
+      questionEl.innerText = q.question;
+      aEl.innerText = q.a;
+      bEl.innerText = q.b;
+      cEl.innerText = q.c;
+      dEl.innerText = q.d;
+      console.log(dEl);
+
+      document.querySelectorAll("input").forEach(input => input.checked = false);
+    }
+
+    function nextQuestion() {
+      const answer = document.querySelector("input[name='answer']:checked");
+   
+
+    console.log(answer.value);
+
+    if (!answer) {
+      alert("Please select an answer");
+      return;
+    }
+
+    if (answer.value === quizData[current].correct) {
+      score++;
+    }
+
+    current++;
+
+    if (current < quizData.length) {
+      loadquestion();
+      } else {
+        document.querySelector(".quiz-box").innerHTML = `<h2>Quiz Finished🎉</h2>
+        <p>Your Score: ${score} / ${quizData.length}</p>`;
+      } 
+
+  
+  }
+  loadquestion();
+      
+    </script>
+
+</body>
+</html>
